@@ -1,14 +1,37 @@
+#Plotting Random Points
 from __future__ import division
 from pylab import *
 from numpy import *
 import random
-m = random.sample(range(0, 100), 10)
-m = array(m)
-x = m/100
-print x
-l = random.sample(range(0, 100), 10)
-l = array(l)
+m = random.sample(range(0, 100), 10)      #creates 10 random numbers in a list between 0 and 100 for x coordinate
+m = array(m)                              #turns list into array so can divide individual elements
+x = m/100                                 #normalizing the random elements by dividing by 100
+l = random.sample(range(0, 100), 10)      #creates another list of 10 random points for y coordinate
+l = array(l)                              
 y = l/100
-print y
-plt.scatter(x,y)
+plt.scatter(x,y)  
 show()
+
+
+#Stern-Gerlach device:
+from __future__ import division
+from pylab import *
+from numpy import *
+import random
+N = 10**6 #Number of particles
+step = 1000
+spinlist = [] #list for spin values
+difflist = [] #list for difference of spin values
+i = 0
+while i < N:
+    spin = random.randint(0,1)              #generates a random int 0 or 1
+    spinlist.append(spin)                   #appends the random int to the spin list
+    spin0 = spinlist.count(0)               #counts number of ints in spinlist that are 0
+    spin1 = spinlist.count(1)               #counts number of ints in spinlist that are 1
+    diff = abs(spin1-spin0)                 #takes the difference in the number of counts for 0 and 1
+    difflist.append(diff)                   #appends that difference to the list
+    i = i + step                            #step size to make computing power easier
+numparticles = linspace(0,10**6,step)       #makes an x axis of number of particles for graphing
+plot(numparticles, difflist)                #plots the difference values over the number of particles for that difference value
+xlabel('Number of Particles')
+ylabel('Difference in Spin Values')
