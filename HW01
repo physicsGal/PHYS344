@@ -1,0 +1,14 @@
+from __future__ import division
+from pylab import *
+from numpy import *
+import random
+m = random.sample(range(0, 100), 10)
+m = array(m)
+x = m/100
+print x
+l = random.sample(range(0, 100), 10)
+l = array(l)
+y = l/100
+print y
+plt.scatter(x,y)
+show()
