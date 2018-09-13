@@ -1,0 +1,65 @@
+#One dimensional walk function
+One.dim.random.walk <- function() {
+n=20
+p=1
+x <- runif(n, 0, 1) #Because I don't care what my vector is. Can specify
+d=0 #distance traveled, initially at 0
+for (i in (1:n)){
+  if (x[i]>=0.5){
+  d=d+p #step to right
+  }
+  else d=d-p #step to the left
+}
+return(d)
+}
+
+# Expected distribution of mean square distances (Nd^2)
+#plotting number of times d showed up vs. d
+k=10000
+N=20
+step=1
+endpoint=c(0,0)
+for(i in (1:k)){
+  d=One.dim.random.walk()
+  endpoint[i]=d^2
+}
+count=c(0,0)
+for(i in (1:10000)){
+  count[endpoint==i] <- length(which(endpoint == i))
+}
+plot(endpoint,count,main="One Dimensional Random Walk (10,000 walks)",xlab="End location after 20 steps",ylab="How many times ended there")
+
+
+
+#2D Random walk
+k=10000
+N=20
+step=1
+endpointx=c(0,0) #empty vector to fill in for right and left movement
+endpointy=c(0,0) #empty vector to fill in for back and forth movement
+rand=runif(k,0,1)
+for(i in (1:k)){
+  if(rand[i]<.5){
+    drl=One.dim.random.walk() #distance right and left
+    dfb=0
+  }
+  else{
+    dfb=One.dim.random.walk() #distance back and forth
+    drl=0
+  }
+  endpointx[i]=drl^2
+  endpointy[i]=dfb^2
+}
+countx=c(0,0)
+county=c(0,0)
+for(i in (1:10000)){
+  countx[endpointx==i] <- length(which(endpointx == i))
+  county[endpointy==i] <- length(which(endpointy == i))
+}
+plot(endpointx,countx,main="One Dimensional Random Walk (10,000 walks)",xlab="End location after 20 steps",ylab="How many times ended there")
+#Can plot forward and back distribution as well as right to left if change x to y in input variables.
+
+
+
+
+
